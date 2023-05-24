@@ -95,7 +95,7 @@ public class Subject {
 
     public void editSubject(int id) {
         Scanner input = new Scanner(System.in);
-        
+
         for (int i = 0; i < subjects.size(); i++) {
             if (id == subjects.get(i).getId()) {
                 System.out.print("Enter New Subject Name: ");
@@ -103,6 +103,25 @@ public class Subject {
                 subjects.get(i).setName(name);
             }
         }
+    }
+
+    public boolean existsSubject(int id) {
+        boolean found = false;
+        for (int i = 0; i < subjects.size(); i++) {
+            if (id == subjects.get(i).getId()) {
+                return found = true;
+            }
+        }
+        return found;
+    }
+
+    public Subject getSubjectById(int id) {
+
+        for (int i = 0; i < subjects.size(); i++) {
+            if (id == subjects.get(i).getId()) {
+                return subjects.get(i);
+            }
+        }return null;
     }
 
 }
