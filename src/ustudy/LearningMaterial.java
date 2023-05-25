@@ -15,19 +15,20 @@ public class LearningMaterial {
 
     int ID;
     String name;
-    String status;
+    String flag;
     int page_number;
     Subject subject;
     ArrayList<LearningMaterial> LM = new ArrayList<>();
+    int pages_done;
 
     public LearningMaterial() {
     }
 
-    public LearningMaterial(Subject subject, int ID, String name, String status, int page_number) {
+    public LearningMaterial(Subject subject, int ID, String name, String flag, int page_number) {
         this.subject = subject;
         this.ID = ID;
         this.name = name;
-        this.status = status;
+        this.flag = flag;
         this.page_number = page_number;
     }
 
@@ -55,12 +56,12 @@ public class LearningMaterial {
         this.name = name;
     }
 
-    public String getStatus() {
-        return status;
+    public String getFlag() {
+        return flag;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
     public int getPage_number() {
@@ -79,6 +80,22 @@ public class LearningMaterial {
         this.subject = subject;
     }
 
+    public ArrayList<LearningMaterial> getLM() {
+        return LM;
+    }
+
+    public void setLM(ArrayList<LearningMaterial> LM) {
+        this.LM = LM;
+    }
+
+    public int getPages_done() {
+        return pages_done;
+    }
+
+    public void setPages_done(int pages_done) {
+        this.pages_done = pages_done;
+    }
+
     public void addLearningMaterial(LearningMaterial lm) {
         LM.add(lm);
     }
@@ -87,7 +104,10 @@ public class LearningMaterial {
         int numOfM = 0;
         for (int i = 0; i < LM.size(); i++) {
             if (subject == LM.get(i).subject) {
-                System.out.println((++numOfM) + "\t\tMaterial ID: mc" + LM.get(i).getID() + " Material Name: " + LM.get(i).getName());
+                System.out.println((++numOfM) + "\t\tMaterial ID: " 
+                        + LM.get(i).getID() + " Material Name: " 
+                        + LM.get(i).getName()
+                +" Pages: "+ LM.get(i).getPages_done()+"/"+LM.get(i).page_number);
             }
         }
 
@@ -114,5 +134,28 @@ public class LearningMaterial {
         if (!found) {
             System.out.println("Learning Material ID is not found!\n");
         }
+    }
+    public LearningMaterial getLMbyId(int id){
+        for (int i = 0; i < LM.size(); i++) {
+            if (id == LM.get(i).getID()) {
+                return LM.get(i);
+            }
+        }return null;
+    }
+    public int pagesDoneforSubject(int id){
+        int total = 0;
+        for (int i = 0; i < LM.size(); i++) {
+            if (id == LM.get(i).getSubject().getId()) {
+                total +=LM.get(i).getPages_done();
+            }
+        }return total;
+    }
+    public int totalPagesforSubject(int id){
+        int total = 0;
+        for (int i = 0; i < LM.size(); i++) {
+            if (id == LM.get(i).getSubject().getId()) {
+                total +=LM.get(i).getPage_number();
+            }
+        }return total;
     }
 }

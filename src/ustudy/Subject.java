@@ -17,6 +17,7 @@ public class Subject {
     String name;
     int minimumTime; //time in mintues or hours
     int progress; // progress "%" compeltion
+    LearningMaterial lm; //instance to call lm
     ArrayList<Subject> subjects = new ArrayList<>();
 
     public Subject() {
@@ -60,6 +61,8 @@ public class Subject {
         this.progress = progress;
     }
 
+
+
     public int getId() {
         return id;
     }
@@ -75,7 +78,11 @@ public class Subject {
     public void viewSubject() {
         System.out.println("Subjects List: ");
         for (int i = 0; i < subjects.size(); i++) {
-            System.out.println("ID: " + subjects.get(i).getId() + " Subject Name: " + subjects.get(i).getName());
+
+            System.out.println("ID: " + subjects.get(i).getId()
+                    + " Subject Name: " + subjects.get(i).getName()
+                    + " Subject Progress: "
+                    + subjects.get(i).getProgress() +"%");
         }
     }
 
@@ -121,7 +128,24 @@ public class Subject {
             if (id == subjects.get(i).getId()) {
                 return subjects.get(i);
             }
-        }return null;
+        }
+        return null;
+    }
+
+    public void calculateProgress(int pagesDone, int totalPages, int id) {
+        double percent = 0;
+        for (int i = 0; i < subjects.size(); i++) {
+            if (id == subjects.get(i).getId()) {
+                if (totalPages != 0) {
+                    percent =(double) pagesDone / totalPages * 100;
+                    System.out.println(percent);
+                    subjects.get(i).setProgress((int)percent);
+                }
+
+            }
+
+        }
+
     }
 
 }

@@ -17,7 +17,7 @@ public class UStudy {
      * @param args the command line arguments
      */
     public static void menu() {
-        System.out.println("********************************************************************");
+        System.out.println("\n\n********************************************************************");
         System.out.println("****************************** UStudy ******************************");
         System.out.println("********************************************************************");
         System.out.println("1: Add Subject");
@@ -27,7 +27,8 @@ public class UStudy {
         System.out.println("5: Add material to a subject ");
         System.out.println("6: View Learning Material");
         System.out.println("7: Delete material of a subject ");
-        System.out.println("8: Quit");
+        System.out.println("8: Update progress for a learning material: ");
+        System.out.println("9: Quit");
         System.out.println(" -------------------------------------------------------------------");
         System.out.print("\nChoose from the menu: ");
     }
@@ -59,6 +60,15 @@ public class UStudy {
                     break;
                 }
                 case 2: {
+                    //calc progress
+                    int idForSearch = 1;
+                    for (int i = 0; i < instance.subjects.size(); i++) {
+                        int pagesDone = lmInstance.pagesDoneforSubject(idForSearch);
+                        int totalPages = lmInstance.totalPagesforSubject(idForSearch);
+                        instance.calculateProgress(pagesDone,totalPages,idForSearch);
+                        idForSearch++;
+                    }
+                    
                     instance.viewSubject();
                     break;
 
@@ -140,17 +150,40 @@ public class UStudy {
                     }
                     break;
                 }
-                case 8:
+                
+                case 8:{
+                    System.out.print("Enter Subject ID: ");
+                    num = input.nextInt();
+                    if (instance.existsSubject(num)){
+                        System.out.print("Enter the Learning Material ID to Update Pages Done: ");
+                        num = input.nextInt();
+                        if(lmInstance.existMaterial(num)){
+                            LearningMaterial lm = lmInstance.getLMbyId(num);
+                            System.out.print("Enter Number Pages Done in "+ lm.getName()+": " );
+                            num = input.nextInt();
+                            lm.setPages_done(num);
+                            System.out.println("\nPages Done Updated Sucessfuly");
+                           
+                        }
+                        else
+                            System.out.println("Learning Material not found");
+                    }
+                    else
+                        System.out.println("Subject not found");
+                    break;
+                }
+                case 9:
                     System.out.println(" > Exiting...");
                     System.out.println(" > Goodbye");
                     break;
+                    
                 default:
                     System.out.println();
                     System.out.println(" > Invalid choice entered! Please try again.");
                     System.out.println();
                     break;
             }
-        } while (num != 8);
+        } while (num != 9);
     }
 
 }
