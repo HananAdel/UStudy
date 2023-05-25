@@ -100,19 +100,37 @@ public class LearningMaterial {
         LM.add(lm);
     }
 
+    public void calculateFlag(LearningMaterial lm) {
+
+        if (lm.getPages_done() > 0
+                && lm.getPages_done() < lm.getPage_number()) {
+            lm.setFlag("In Progress");
+        }
+        if (lm.getPages_done() == lm.getPage_number()) {
+            lm.setFlag("Completed");
+        } 
+        if(lm.getPages_done() == 0) {
+            lm.setFlag("Not Started");
+        }
+
+    }
+
     public void viewMaterial(Subject subject) {
         int numOfM = 0;
         for (int i = 0; i < LM.size(); i++) {
             if (subject == LM.get(i).subject) {
-                System.out.println((++numOfM) + "\t\tMaterial ID: " 
-                        + LM.get(i).getID() + " Material Name: " 
+                calculateFlag(LM.get(i)); //calc flag every view
+                System.out.println((++numOfM) + "\t\tMaterial ID: "
+                        + LM.get(i).getID() + " Material Name: "
                         + LM.get(i).getName()
-                +" Pages: "+ LM.get(i).getPages_done()+"/"+LM.get(i).page_number);
+                        + "  Pages: " + LM.get(i).getPages_done() + "/" + LM.get(i).getPage_number()
+                        + "  Flag: " + LM.get(i).getFlag());
             }
         }
 
     }
-    public boolean existMaterial(int id){
+
+    public boolean existMaterial(int id) {
         boolean found = false;
         for (int i = 0; i < LM.size(); i++) {
             if (id == LM.get(i).getID()) {
@@ -121,8 +139,8 @@ public class LearningMaterial {
         }
         return found;
     }
-    
-    public void deleteMaterial(int id){
+
+    public void deleteMaterial(int id) {
         boolean found = false;
         for (int i = 0; i < LM.size(); i++) {
             if (id == LM.get(i).getID()) {
@@ -135,27 +153,33 @@ public class LearningMaterial {
             System.out.println("Learning Material ID is not found!\n");
         }
     }
-    public LearningMaterial getLMbyId(int id){
+
+    public LearningMaterial getLMbyId(int id) {
         for (int i = 0; i < LM.size(); i++) {
             if (id == LM.get(i).getID()) {
                 return LM.get(i);
             }
-        }return null;
+        }
+        return null;
     }
-    public int pagesDoneforSubject(int id){
+
+    public int pagesDoneforSubject(int id) {
         int total = 0;
         for (int i = 0; i < LM.size(); i++) {
             if (id == LM.get(i).getSubject().getId()) {
-                total +=LM.get(i).getPages_done();
+                total += LM.get(i).getPages_done();
             }
-        }return total;
+        }
+        return total;
     }
-    public int totalPagesforSubject(int id){
+
+    public int totalPagesforSubject(int id) {
         int total = 0;
         for (int i = 0; i < LM.size(); i++) {
             if (id == LM.get(i).getSubject().getId()) {
-                total +=LM.get(i).getPage_number();
+                total += LM.get(i).getPage_number();
             }
-        }return total;
+        }
+        return total;
     }
 }
