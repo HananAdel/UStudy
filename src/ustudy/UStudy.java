@@ -180,10 +180,11 @@ public class UStudy {
                     int numLM = lmInstance.NumOfLM(num);
                     
                     Schedule MLSchedule = new Schedule(subject.id, subject.getName(), date);
-                    MLSchedule.CalcEndDate(date, numLM);
+                    MLSchedule.CalcEndDate(date, numLM-1);
                     schInstance.addSchedule(MLSchedule);
                     
                     schInstance.SchedulePrint();
+                    lmInstance.LMDays(date, num);
                     break;
                 }
 

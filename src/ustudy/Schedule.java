@@ -69,7 +69,6 @@ public class Schedule {
                     + "  Start Date: " + schedule.get(i).getSdate()
                     + "  End Date: " + schedule.get(i).getEdate()+"\n");
         }
-        System.out.println("------------------------------------------------------------------------\n");
     }
 
     public int getLMID() {

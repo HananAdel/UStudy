@@ -1,6 +1,9 @@
 package ustudy;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -108,8 +111,8 @@ public class LearningMaterial {
         }
         if (lm.getPages_done() == lm.getPage_number()) {
             lm.setFlag("Completed");
-        } 
-        if(lm.getPages_done() == 0) {
+        }
+        if (lm.getPages_done() == 0) {
             lm.setFlag("Not Started");
         }
 
@@ -182,9 +185,29 @@ public class LearningMaterial {
         }
         return total;
     }
-    
-    public int NumOfLM(int id)
+
+    public void LMDays(String Date, int id)
     {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
+        Calendar cal = Calendar.getInstance();
+        int number = 0;
+        for (int i = 0; i < LM.size(); i++) {
+            if (id == LM.get(i).getSubject().getId())
+            {
+                try {
+                    cal.setTime(sdf.parse(Date));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                cal.add(Calendar.DAY_OF_MONTH, number++);
+                String Ndate = sdf.format(cal.getTime());
+                System.out.println("\t\t" + LM.get(i).getName()+"\t"+Ndate);
+            }
+        }
+        System.out.println("\n------------------------------------------------------------------------\n");
+    }
+
+    public int NumOfLM(int id) {
         int total = 0;
         for (int i = 0; i < LM.size(); i++) {
             if (id == LM.get(i).getSubject().getId()) {
