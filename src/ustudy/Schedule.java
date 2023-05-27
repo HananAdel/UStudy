@@ -60,16 +60,16 @@ public class Schedule {
     }
 
     public void SchedulePrint() {
-        System.out.println("-------------------------------------------------------------------------");
-        System.out.println("                              Study Schedule                             ");
-        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("                              Study Schedule                            ");
+        System.out.println("------------------------------------------------------------------------\n");
         for (int i = 0; i < schedule.size(); i++) {
             System.out.println("ID: " + schedule.get(i).LMID
                     + "  Subject Name: " + schedule.get(i).getLMName()
                     + "  Start Date: " + schedule.get(i).getSdate()
-                    + "  End Date: " + schedule.get(i).getEdate());
+                    + "  End Date: " + schedule.get(i).getEdate()+"\n");
         }
-        System.out.println("-------------------------------------------------------------------------\n");
+        System.out.println("------------------------------------------------------------------------\n");
     }
 
     public int getLMID() {
