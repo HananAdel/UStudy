@@ -182,4 +182,15 @@ public class LearningMaterial {
         }
         return total;
     }
+    
+    public int NumOfLM(int id)
+    {
+        int total = 0;
+        for (int i = 0; i < LM.size(); i++) {
+            if (id == LM.get(i).getSubject().getId()) {
+                total += 1;
+            }
+        }
+        return total;
+    }
 }

@@ -87,7 +87,7 @@ public class UStudy {
 
                 }
                 case 5: {
-                    System.out.print("Enter the subject ID too add material: ");
+                    System.out.print("Enter the subject ID to add material: ");
                     num = input.nextInt();
                     int materialPage;
 
@@ -177,8 +177,10 @@ public class UStudy {
                     Subject subject = instance.getSubjectById(num);
                     System.out.print("Enter Start Date(DD/MM/YYYY): ");
                     String date = input.next();
+                    int numLM = lmInstance.NumOfLM(num);
                     
                     Schedule MLSchedule = new Schedule(subject.id, subject.getName(), date);
+                    MLSchedule.CalcEndDate(date, numLM);
                     schInstance.addSchedule(MLSchedule);
                     
                     schInstance.SchedulePrint();

@@ -1,41 +1,75 @@
 package ustudy;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
  *
  * @author hebahturki
  */
-public class Schedule 
-{
+public class Schedule {
+
     int LMID;
     String LMName;
-    String date;
+    String Sdate;
+    String Edate;
     ArrayList<Schedule> schedule = new ArrayList();
 
-    public Schedule(int LMID, String LMName, String date) 
-    {
+    public String getEdate() {
+        return Edate;
+    }
+
+    public void setEdate(String Edate) {
+        this.Edate = Edate;
+    }
+
+    public Schedule(int LMID, String LMName, String date) {
         this.LMID = LMID;
         this.LMName = LMName;
-        this.date = date;
+        this.Sdate = date;
+    }
+
+    public Schedule(int LMID, String LMName, String Sdate, String Edate) {
+        this.LMID = LMID;
+        this.LMName = LMName;
+        this.Sdate = Sdate;
+        this.Edate = Edate;
     }
 
     public Schedule() {
     }
-    
-    public void SchedulePrint()
-    {
-        System.out.println("-------------------------------------------------");
-        System.out.println("                Study Schedule                   ");
-        System.out.println("-------------------------------------------------");
-        for (int i = 0; i < schedule.size(); i++) {
 
+    public void CalcEndDate(String Sdate, int LM) throws ParseException
+    {     
+        // create instance of the SimpleDateFormat that matches the given date  
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  
+        //create instance of the Calendar class and set the date to the given date  
+        Calendar cal = Calendar.getInstance();  
+        try{  
+           cal.setTime(sdf.parse(Sdate));  
+        }catch(ParseException e){  
+            e.printStackTrace();  
+         }  
+        // use add() method to add the days to the given date  
+        cal.add(Calendar.DAY_OF_MONTH, LM);  
+        String Edate = sdf.format(cal.getTime());
+        setEdate(Edate);
+    }
+
+    public void SchedulePrint() {
+        System.out.println("-------------------------------------------------------------------------");
+        System.out.println("                              Study Schedule                             ");
+        System.out.println("-------------------------------------------------------------------------");
+        for (int i = 0; i < schedule.size(); i++) {
             System.out.println("ID: " + schedule.get(i).LMID
                     + "  Subject Name: " + schedule.get(i).getLMName()
-                    + "  Start Date: "+schedule.get(i).getDate());
+                    + "  Start Date: " + schedule.get(i).getSdate()
+                    + "  End Date: " + schedule.get(i).getEdate());
         }
-        System.out.println("-------------------------------------------------\n");
+        System.out.println("-------------------------------------------------------------------------\n");
     }
 
     public int getLMID() {
@@ -54,12 +88,12 @@ public class Schedule
         this.LMName = LMName;
     }
 
-    public String getDate() {
-        return date;
+    public String getSdate() {
+        return Sdate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setSdate(String date) {
+        this.Sdate = date;
     }
 
     public ArrayList<Schedule> getSchedule() {
@@ -69,7 +103,7 @@ public class Schedule
     public void setSchedule(ArrayList<Schedule> schedule) {
         this.schedule = schedule;
     }
-    
+
     public void addSchedule(Schedule lm) {
         schedule.add(lm);
     }

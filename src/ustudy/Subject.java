@@ -129,7 +129,7 @@ public class Subject {
         }
         return null;
     }
-
+    
     public void calculateProgress(int pagesDone, int totalPages, int id) {
         double percent = 0;
         for (int i = 0; i < subjects.size(); i++) {
