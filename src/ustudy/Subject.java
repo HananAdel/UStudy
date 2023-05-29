@@ -16,9 +16,6 @@ public class Subject {
     LearningMaterial lm; //instance to call lm
     ArrayList<Subject> subjects = new ArrayList<>();
     Session session;
-//    private long TotalTimeInMillie;
-//    private long TotalTimeInSeconds;
-//    private long TotalTimeInMinutes;
     
 
     public Subject() 
@@ -85,7 +82,8 @@ public class Subject {
             System.out.println("ID: " + subjects.get(i).getId()
                     + " Subject Name: " + subjects.get(i).getName()
                     + " Subject Progress: "
-                    + subjects.get(i).getProgress() +"%");
+                    + subjects.get(i).getProgress() +"%"
+                    +" Approximate Time to Finish a Subject:  "+ subjects.get(i).getMinimumTime() + " mintues");
         }
     }
 
@@ -141,7 +139,6 @@ public class Subject {
             if (id == subjects.get(i).getId()) {
                 if (totalPages != 0) {
                     percent =(double) pagesDone / totalPages * 100;
-                    System.out.println(percent);
                     subjects.get(i).setProgress((int)percent);
                 }
 
@@ -152,6 +149,31 @@ public class Subject {
     }
     public void setSession(Session session){
         this.session=session;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+    public void calculateMinimumTime(int id, LearningMaterial instance){
+        if(existsSubject(id)){
+          if(getSubjectById(id).getSession() != null){
+            int pages = getSubjectById(id).getSession().getPagesReadInSession();
+            double time =  getSubjectById(id).getSession().getTotalTimeInMinutes();
+            if(time !=0 ){
+                double speed = pages / time;
+                int remainingPages = instance.totalPagesforSubject(id) - instance.pagesDoneforSubject(id);
+                if(speed != 0){
+                    int minimumTime = (int)(remainingPages/speed);
+                    getSubjectById(id).setMinimumTime(minimumTime);
+                }
+                else
+                    System.out.println("speed is zero");
+            }
+            else
+                  System.out.println("time is zero");
+        }  
+        }
+        
     }
 
 

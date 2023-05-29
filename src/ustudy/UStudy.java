@@ -44,7 +44,7 @@ public class UStudy {
         Subject instance = new Subject();
         Schedule schInstance = new Schedule();
         LearningMaterial lmInstance = new LearningMaterial();
-
+        int pagesRead = 0;
         do {
             menu();
             num = input.nextInt();
@@ -67,6 +67,7 @@ public class UStudy {
                         int pagesDone = lmInstance.pagesDoneforSubject(idForSearch);
                         int totalPages = lmInstance.totalPagesforSubject(idForSearch);
                         instance.calculateProgress(pagesDone, totalPages, idForSearch);
+                        instance.calculateMinimumTime(idForSearch, lmInstance);
                         idForSearch++;
                     }
 
@@ -162,6 +163,7 @@ public class UStudy {
                             LearningMaterial lm = lmInstance.getLMbyId(num);
                             System.out.print("Enter Number Pages Done in " + lm.getName() + ": ");
                             num = input.nextInt();
+                            
                             lm.setPages_done(num);
                             System.out.println("\nPages Done Updated Sucessfuly");
 
@@ -192,13 +194,17 @@ public class UStudy {
                 }
                 case 10: {
 
+                    
                     System.out.print("Enter Subject ID: ");
-                    num = input.nextInt();
-                    Session session = new Session();
-                    if (instance.existsSubject(num)) {
-                        System.out.print("Enter 0 if you want to stop session for subject " + instance.getSubjectById(num).getName() + ": ");
-                        instance.getSubjectById(num).setSession(session);
+                    int subjectID = input.nextInt();
+                    
+                    if (instance.existsSubject(subjectID)) {
+                        Session session = new Session(instance.getSubjectById(subjectID));
+                        System.out.println("---------SESSION STARTED--------");
+                        System.out.print("Enter 0 if you want to stop session for subject " + instance.getSubjectById(subjectID).getName() + ": ");
+                        instance.getSubjectById(subjectID).setSession(session);
                         session.StartTimer();
+                        
                         do {
                             num = input.nextInt();
                         } while (num != 0);
@@ -213,6 +219,8 @@ public class UStudy {
                                 LearningMaterial lm = lmInstance.getLMbyId(LMid);
                                 System.out.print("Enter Number Pages Done in " + lm.getName() + ": ");
                                 int pagesDone = input.nextInt();
+                                pagesRead = pagesDone - lm.getPages_done();
+                                instance.getSubjectById(subjectID).getSession().setPagesReadInSession(pagesRead);
                                 lm.setPages_done(pagesDone);
                                 System.out.println("\nPages Done Updated Sucessfuly");
                             } else {
@@ -224,7 +232,7 @@ public class UStudy {
                     } else {
                         System.out.println("Subject not found");
                     }
-
+                    break;
                 }
 
                 case 11:
@@ -242,13 +250,3 @@ public class UStudy {
     }
 
 }
-
-//^^^first idea is to link session time to subject>>learing materials
-//                    System.out.print("Enter number of intervals: ");
-//                    num = input.nextInt();
-//                    System.out.print("Enter number of minutes for the study session: ");
-//                    int studyTime = input.nextInt();
-//                    System.out.print("Enter number of minutes for the break time: ");
-//                    int breakTime = input.nextInt();
-//                    Session session = new Session();
-//                    session.stratSeesion(num, studyTime, breakTime);
