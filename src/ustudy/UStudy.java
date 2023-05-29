@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -27,7 +29,8 @@ public class UStudy {
         System.out.println("7: Delete material of a subject ");
         System.out.println("8: Update progress for a learning material ");
         System.out.println("9: Start Schedule ");
-        System.out.println("10: Quit");
+        System.out.println("10: Start Session ");
+        System.out.println("11: Quit");
         System.out.println(" -------------------------------------------------------------------");
         System.out.print("\nChoose from the menu: ");
     }
@@ -178,17 +181,53 @@ public class UStudy {
                     System.out.print("Enter Start Date(DD/MM/YYYY): ");
                     String date = input.next();
                     int numLM = lmInstance.NumOfLM(num);
-                    
+
                     Schedule MLSchedule = new Schedule(subject.id, subject.getName(), date);
-                    MLSchedule.CalcEndDate(date, numLM-1);
+                    MLSchedule.CalcEndDate(date, numLM - 1);
                     schInstance.addSchedule(MLSchedule);
-                    
+
                     schInstance.SchedulePrint();
                     lmInstance.LMDays(date, num);
                     break;
                 }
+                case 10: {
 
-                case 10:
+                    System.out.print("Enter Subject ID: ");
+                    num = input.nextInt();
+                    Session session = new Session();
+                    if (instance.existsSubject(num)) {
+                        System.out.print("Enter 0 if you want to stop session for subject " + instance.getSubjectById(num).getName() + ": ");
+                        instance.getSubjectById(num).setSession(session);
+                        session.StartTimer();
+                        do {
+                            num = input.nextInt();
+                        } while (num != 0);
+                        session.StopTimer();
+                        System.out.print("Enter how many learning material have you finished : ");
+                        num = input.nextInt();
+                        do {
+
+                            System.out.print("Enter learning material number :");
+                            int LMid = input.nextInt();
+                            if (lmInstance.existMaterial(LMid)) {
+                                LearningMaterial lm = lmInstance.getLMbyId(LMid);
+                                System.out.print("Enter Number Pages Done in " + lm.getName() + ": ");
+                                int pagesDone = input.nextInt();
+                                lm.setPages_done(pagesDone);
+                                System.out.println("\nPages Done Updated Sucessfuly");
+                            } else {
+                                System.out.println("Learning Material not found");
+                            }
+                            num--;
+                        } while (num > 0);//runs through the number of chapters the student has finshed
+                        //i should add somthing to add to subject class for the time they took
+                    } else {
+                        System.out.println("Subject not found");
+                    }
+
+                }
+
+                case 11:
                     System.out.println(" > Exiting...");
                     System.out.println(" > Goodbye");
                     break;
@@ -199,7 +238,17 @@ public class UStudy {
                     System.out.println();
                     break;
             }
-        } while (num != 9);
+        } while (num != 11);
     }
 
 }
+
+//^^^first idea is to link session time to subject>>learing materials
+//                    System.out.print("Enter number of intervals: ");
+//                    num = input.nextInt();
+//                    System.out.print("Enter number of minutes for the study session: ");
+//                    int studyTime = input.nextInt();
+//                    System.out.print("Enter number of minutes for the break time: ");
+//                    int breakTime = input.nextInt();
+//                    Session session = new Session();
+//                    session.stratSeesion(num, studyTime, breakTime);

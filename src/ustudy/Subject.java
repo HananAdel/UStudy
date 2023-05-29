@@ -15,6 +15,11 @@ public class Subject {
     int progress; // progress "%" compeltion
     LearningMaterial lm; //instance to call lm
     ArrayList<Subject> subjects = new ArrayList<>();
+    Session session;
+//    private long TotalTimeInMillie;
+//    private long TotalTimeInSeconds;
+//    private long TotalTimeInMinutes;
+    
 
     public Subject() 
     {
@@ -145,5 +150,9 @@ public class Subject {
         }
 
     }
+    public void setSession(Session session){
+        this.session=session;
+    }
+
 
 }
