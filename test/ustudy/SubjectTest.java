@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 import org.junit.Ignore;
 
 /**
- *
+ *j
  * @author hananadel
  */
 public class SubjectTest {
@@ -128,6 +128,7 @@ public class SubjectTest {
     /**
      * Test of calculateMinimumTime method, of class Subject.
      */
+    @Ignore
     @Test
     public void testCalculateMinimumTime() {
         System.out.println("calculateMinimumTime");

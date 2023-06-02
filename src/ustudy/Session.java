@@ -40,7 +40,7 @@ public class Session {
     }
 
     public long getTotalTimeInSeconds() {
-        //setTotalTimeInSeconds(getTotalTimeInMillie()/1000);
+        setTotalTimeInSeconds(getTotalTimeInMillie()/1000);
         return TotalTimeInSeconds;
     }
 
@@ -70,6 +70,7 @@ public class Session {
     public void setPagesReadInSession(int pagesReadInSession) {
         this.pagesReadInSession = pagesReadInSession;
     }
+
     
 
 }
