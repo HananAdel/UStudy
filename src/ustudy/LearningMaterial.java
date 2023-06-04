@@ -91,7 +91,7 @@ public class LearningMaterial {
 
     public void setLM(ArrayList<LearningMaterial> LM) {
         this.LM = LM;
-    }
+    } 
 
     public int getPages_done() {
         return pages_done;

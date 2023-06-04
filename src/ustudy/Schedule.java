@@ -96,7 +96,7 @@ public class Schedule {
     }
 
     public ArrayList<Schedule> getSchedule() {
-        return schedule;
+        return schedule; 
     }
 
     public void setSchedule(ArrayList<Schedule> schedule) {
