@@ -7,15 +7,8 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
-
-
-
 public class UStudy {
 
-    
-    
-    
     public static void menu() {
         System.out.println("\n\n********************************************************************");
         System.out.println("****************************** UStudy ******************************");
@@ -40,7 +33,7 @@ public class UStudy {
 
         Scanner input = new Scanner(System.in);
         int selectedOption; //number by user
-        int num=0;//
+        int num = 0;//
         int numberOfLearningMaterials = 0;
         int subjectID = 0;
         int LM_ID;
@@ -82,8 +75,7 @@ public class UStudy {
                 case 3: {
                     instance.viewSubjectAndID();//so the user knows which id is related to which subject
                     System.out.print("Enter The Subject ID to Delete: ");
-                    
-                    
+
                     subjectID = input.nextInt();
                     instance.deleteSubject(subjectID);
                     break;
@@ -138,10 +130,10 @@ public class UStudy {
                     } else {
                         System.out.println("ID not found!");
 
-                    System.out.println("###################################################################3\n");
+                        System.out.println("###################################################################3\n");
 
+                    }
                     break;
-                }
                 }
                 case 7: {
                     instance.viewSubjectAndID();//so the user knows which ID is related to which subject
@@ -152,16 +144,15 @@ public class UStudy {
                         lmInstance.viewMaterial(instance.getSubjectById(subjectID));//shows learning materials for specific subject
                         System.out.print("Enter the Learning Material ID to delete: ");
                         LM_ID = input.nextInt();
-                        
-                        if(lmInstance.existMaterial(LM_ID)){
-                             if(LM_ID>=subjectID*50 && LM_ID<subjectID+1*50){
-                                    lmInstance.deleteMaterial(LM_ID);}
-                             else{
-                             System.out.println("Learning Material ID is not for this subject!");
-                             }
-                        }
-                        else{
-                        System.out.println("Learning Material ID not found!");
+
+                        if (lmInstance.existMaterial(LM_ID)) {
+                            if (LM_ID >= subjectID * 50 && LM_ID < subjectID + 1 * 50) {
+                                lmInstance.deleteMaterial(LM_ID);
+                            } else {
+                                System.out.println("Learning Material ID is not for this subject!");
+                            }
+                        } else {
+                            System.out.println("Learning Material ID not found!");
                         }
 
                     } else {
@@ -180,7 +171,7 @@ public class UStudy {
                             LearningMaterial lm = lmInstance.getLMbyId(LM_ID);
                             System.out.print("Enter Number Pages Done in " + lm.getName() + ": ");
                             numberOFPages = input.nextInt();
-                            
+
                             lm.setPages_done(numberOFPages);
                             System.out.println("\nPages Done Updated Sucessfuly");
 
@@ -207,56 +198,57 @@ public class UStudy {
 
                     schInstance.SchedulePrint();
                     lmInstance.LMDays(date, subjectID);
-                    break; 
-                }
-                case 10: {
-                instance.viewSubjectAndID(); //so the user knows which ID is related to which subject
-                System.out.print("Enter Subject ID: ");
-                subjectID = input.nextInt();
-
-                if (instance.existsSubject(subjectID)) {
-                    Session session = new Session(instance.getSubjectById(subjectID));
-                    System.out.println("---------SESSION STARTED--------");
-                    System.out.print("Enter 0 if you want to stop session for subject " + instance.getSubjectById(subjectID).getName() + ": ");
-                    instance.getSubjectById(subjectID).setSession(session);
-                    session.StartTimer();
-                    
-                            do{
-                            numberOfLearningMaterials = input.nextInt();
-                            }while(num !=0);
-                                  session.StopTimer();
-                                  System.out.print("Enter learning material number: ");
-                                  LM_ID = input.nextInt();
-                                  
-                                do{ 
-                                  if (lmInstance.existMaterial(LM_ID)) {
-                                     LearningMaterial lm = lmInstance.getLMbyId(LM_ID);
-                                     System.out.print("Enter Number Pages Done in " + lm.getName() + ": ");
-                                     int pagesDone = input.nextInt();
-
-                                     int overAllPages = lm.getPage_number();
-                                     int pagesDoneBefore = lm.getPages_done();
-                                     
-                                      if ((overAllPages - pagesDone - pagesDoneBefore)<0) {
-                                          System.out.println("Invalid input. That is more than the learning material's pages!");
-                                      } else {
-                                          instance.getSubjectById(subjectID).getSession().setPagesReadInSession(pagesDone);
-                                          lm.setPages_done(pagesDone);
-                                          System.out.println("\nPages Done Updated Successfully");
-                                      }
-                                  } else {
-                                     System.out.println("Learning Material not found");
-                                  }
-                                  
-                                  numberOfLearningMaterials--;
-                                }while(numberOfLearningMaterials>0);   
-                           }else {
-                             System.out.println("Subject not found");
-                     }
                     break;
                 }
+                case 10: {
+                    instance.viewSubjectAndID(); //so the user knows which ID is related to which subject
+                    System.out.print("Enter Subject ID: ");
+                    subjectID = input.nextInt();
 
-                    
+                    if (instance.existsSubject(subjectID)) {
+                        Session session = new Session(instance.getSubjectById(subjectID));
+                        System.out.println("---------SESSION STARTED--------");
+                        System.out.print("Enter 0 if you want to stop session for subject " + instance.getSubjectById(subjectID).getName() + ": ");
+                        instance.getSubjectById(subjectID).setSession(session);
+                        session.StartTimer();
+
+                        do {
+                            num = input.nextInt();
+                        } while (num != 0);
+
+                        session.StopTimer();
+                        System.out.print("\nEnter how many learning material have you studied : ");
+                        numberOfLearningMaterials = input.nextInt();
+                        lmInstance.viewMaterial(instance.getSubjectById(subjectID));
+                        System.out.print("\nEnter learning material number: ");
+                        LM_ID = input.nextInt();
+
+                        do {
+                            if (lmInstance.existMaterial(LM_ID)) {
+                                LearningMaterial lm = lmInstance.getLMbyId(LM_ID);
+                                System.out.print("Enter Number Pages Done in " + lm.getName() + ": ");
+                                int pagesDone = input.nextInt();
+
+                                int overAllPages = lm.getPage_number();
+
+                                if ((overAllPages - pagesDone) < 0) {
+                                    System.out.println("Invalid input. That is more than the learning material's pages!");
+                                } else {
+                                    instance.getSubjectById(subjectID).getSession().setPagesReadInSession(pagesDone);
+                                    lm.setPages_done(pagesDone);
+                                    System.out.println("\nPages Done Updated Successfully");
+                                }
+                            } else {
+                                System.out.println("Learning Material not found");
+                            }
+
+                            numberOfLearningMaterials--;
+                        } while (numberOfLearningMaterials > 0);
+                    } else {
+                        System.out.println("Subject not found");
+                    }
+                    break;
+                }
 
                 case 11:
                     System.out.println(" > Exiting...");
@@ -269,7 +261,7 @@ public class UStudy {
                     System.out.println();
                     break;
             }
-        } while (num != 11);
+        } while (selectedOption != 11);
     }
 
 }

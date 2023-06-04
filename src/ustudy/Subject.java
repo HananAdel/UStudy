@@ -73,6 +73,7 @@ public class Subject {
 
     public void addSubject(Subject subject) {
         subjects.add(subject);
+        System.out.println("\nSubject Added Sucessfuly");
     }
 
     public void viewSubject() {
@@ -81,9 +82,9 @@ public class Subject {
 
             System.out.println("ID: " + subjects.get(i).getId()
                     + " Subject Name: " + subjects.get(i).getName()
-                    + " Subject Progress: "
+                    + " \tSubject Progress: "
                     + subjects.get(i).getProgress() +"%"
-                    +" Approximate Time to Finish a Subject:  "+ subjects.get(i).getMinimumTime() + " mintues");
+                    +"\t Approximate Time to Finish a Subject:  "+ subjects.get(i).getMinimumTime() + " mintues");
         }
     }
     
