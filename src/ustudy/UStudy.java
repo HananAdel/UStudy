@@ -207,7 +207,7 @@ public class UStudy {
 
                     schInstance.SchedulePrint();
                     lmInstance.LMDays(date, subjectID);
-                    break;
+                    break; 
                 }
                 case 10: {
                 instance.viewSubjectAndID(); //so the user knows which ID is related to which subject
