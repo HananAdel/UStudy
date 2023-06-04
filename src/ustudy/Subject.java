@@ -86,6 +86,16 @@ public class Subject {
                     +" Approximate Time to Finish a Subject:  "+ subjects.get(i).getMinimumTime() + " mintues");
         }
     }
+    
+    public void viewSubjectAndID() {
+        System.out.println("Subjects List: ");
+        for (int i = 0; i < subjects.size(); i++) {
+
+            System.out.println("ID: " + subjects.get(i).getId()
+                    + " Subject Name: " + subjects.get(i).getName()
+                    );
+        }
+    }
 
     public void deleteSubject(int id) {
         boolean found = false;
