@@ -228,7 +228,7 @@ public class UStudy {
                             }
                             num--;
                         } while (num > 0);//runs through the number of chapters the student has finshed
-                        //i should add somthing to add to subject class for the time they took
+                        
                     } else {
                         System.out.println("Subject not found");
                     }

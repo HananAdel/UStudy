@@ -22,12 +22,14 @@ public class Session {
         this.pagesReadInSession = 0;
     }
 
-    public void StartTimer() {
+    public long StartTimer() {
         FTime = System.currentTimeMillis();
+        return FTime;
     }
 
-    public void StopTimer() {
+    public long StopTimer() {
         STime = System.currentTimeMillis();
+        return STime;
     }
 
     public long getTotalTimeInMillie() {
