@@ -21,7 +21,7 @@ public class Session {
         this.subject = subject;
         this.pagesReadInSession = 0;
     }
-
+ 
     public void StartTimer() {
         FTime = System.currentTimeMillis();
     }
@@ -70,6 +70,7 @@ public class Session {
     public void setPagesReadInSession(int pagesReadInSession) {
         this.pagesReadInSession = pagesReadInSession;
     }
+
     
 
 }

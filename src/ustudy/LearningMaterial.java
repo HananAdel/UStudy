@@ -33,6 +33,7 @@ public class LearningMaterial {
         this.name = name;
         this.flag = flag;
         this.page_number = page_number;
+        this.pages_done = 0;
     }
 
     public LearningMaterial(Subject subject, int ID, String name, int page_number) {
@@ -40,6 +41,7 @@ public class LearningMaterial {
         this.ID = ID;
         this.name = name;
         this.page_number = page_number;
+        this.pages_done = 0;
 
     }
 
@@ -89,7 +91,7 @@ public class LearningMaterial {
 
     public void setLM(ArrayList<LearningMaterial> LM) {
         this.LM = LM;
-    }
+    } 
 
     public int getPages_done() {
         return pages_done;
